@@ -1,4 +1,5 @@
 #include "main.h"
+#include "subsystems/drivetrain.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -16,8 +17,22 @@ void on_center_button() {
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-void initialize() {
+void screen() {
+    // loop forever
+    while (true) {
+        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
+        pros::lcd::print(0, "x: %f", pose.x); // print the x position
+        pros::lcd::print(1, "y: %f", pose.y); // print the y position
+        pros::lcd::print(2, "heading: %f", formatHeading(pose.theta)); // print the heading
+        pros::delay(10);
+    }
+}
 
+void initialize() {
+    pros::lcd::initialize();
+    pros::Task screenTask(screen);
+
+    chassis.calibrate();
 }
 
 /**
@@ -65,6 +80,10 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-
-
+        while (true) {
+            int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+            int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+            arcadeDrive(returnExponential(leftYAxis), returnExponential(rightXAxis));
+            pros::delay(10);
+        }
 }

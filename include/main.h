@@ -40,6 +40,7 @@
  * You should add more #includes here
  */
 //#include "okapi/api.hpp"
+#include "lemlib/api.hpp"
 //#include "pros/api_legacy.h"
 
 /**
@@ -74,8 +75,11 @@ void opcontrol(void);
 #ifdef __cplusplus
 /**
  * You can add C++-only headers here
+ *
  */
 //#include <iostream>
+#include "subsystems/drivetrain.h"
+#include "functions.h"
 #endif
 
 #endif  // _PROS_MAIN_H_
