@@ -44,7 +44,8 @@ lemlib::OdomSensors_t odomSensors {
         nullptr, // vertical tracking wheel 2
         &xTracker, // horizontal tracking wheel 1
         nullptr, // we don't have a second tracking wheel, so we set it to nullptr
-        &inertial // inertial sensor
+        &inertial, // inertial sensor
+        ((362.9323 / 360.0))
 };
 
 /*
