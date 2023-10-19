@@ -9,10 +9,10 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 ################
  */
 
-pros::Motor backLeft = pros::Motor(1, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor frontLeft = pros::Motor(2, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor frontRight = pros::Motor(9, pros::E_MOTOR_GEARSET_06, false);
-pros::Motor backRight = pros::Motor(10, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor backLeft = pros::Motor(PORT_DRIVE_BACKLEFT, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor frontLeft = pros::Motor(PORT_DRIVE_FRONTLEFT, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor frontRight = pros::Motor(PORT_DRIVE_FRONTRIGHT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor backRight = pros::Motor(PORT_DRIVE_BACKRIGHT, pros::E_MOTOR_GEARSET_06, false);
 
 pros::Motor_Group driveLeft = pros::Motor_Group({backLeft, frontLeft});
 pros::Motor_Group driveRight = pros::Motor_Group({backRight, frontRight});
@@ -31,13 +31,13 @@ lemlib::Drivetrain_t drivetrain {
 ##############
 */
 
-pros::ADIEncoder xEncoder = pros::ADIEncoder('A', 'B', true);
-pros::ADIEncoder yEncoder = pros::ADIEncoder('C', 'D', false);
+pros::ADIEncoder xEncoder = pros::ADIEncoder(PORT_ADI_XENCODER_TOP, PORT_ADI_XENCODER_BOTTOM, true);
+pros::ADIEncoder yEncoder = pros::ADIEncoder(PORT_ADI_YENCODER_TOP, PORT_ADI_YENCODER_BOTTOM, false);
 
 lemlib::TrackingWheel xTracker(&xEncoder, 2.75, -1.00393701, 1);
 lemlib::TrackingWheel yTracker(&yEncoder, 2.75, -0.0196850394, 1);
 
-pros::Imu inertial = pros::Imu(4);
+pros::Imu inertial = pros::Imu(PORT_INERTIAL);
 
 lemlib::OdomSensors_t odomSensors {
         &yTracker, // vertical tracking wheel 1
