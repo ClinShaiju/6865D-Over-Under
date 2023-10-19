@@ -79,6 +79,7 @@ void opcontrol(void);
  */
 //#include <iostream>
 #include "subsystems/drivetrain.h"
+#include "subsystems/intake.h"
 #include "functions.h"
 #endif
 

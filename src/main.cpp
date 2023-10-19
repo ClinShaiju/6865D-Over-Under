@@ -2,16 +2,6 @@
 #include "subsystems/drivetrain.h"
 
 /**
- * A callback function for LLEMU's center button.
- *
- * When this callback is fired, it will toggle line 2 of the LCD text between
- * "I was pressed!" and nothing.
- */
-void on_center_button() {
-
-}
-
-/**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
@@ -84,6 +74,7 @@ void opcontrol() {
             int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
             int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
             arcadeDrive(returnExponential(leftYAxis), returnExponential(rightXAxis));
+            runIntake();
             pros::delay(10);
         }
 }

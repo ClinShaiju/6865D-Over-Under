@@ -95,6 +95,16 @@ float getVelocityOutput(pros::MotorGroup &motors, int voltage) {
 
 }
 
+float getVelocityOutput(pros::Motor &motor, int voltage) {
+
+    float output = 0;
+    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_06) output = (600.0 / 127.0) * voltage;
+    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_18) output = (200.0 / 127.0) * voltage;
+    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_36) output = (100.0 / 127.0) * voltage;
+    return output;
+
+}
+
 void arcadeDrive(double leftAxis, double rightAxis) {
 
     float leftOutput = getVelocityOutput(driveLeft, leftAxis);
