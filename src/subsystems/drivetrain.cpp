@@ -95,7 +95,7 @@ float getVelocityOutput(pros::MotorGroup &motors, int voltage) {
 
 }
 
-void arcadeDrive(int leftAxis, int rightAxis) {
+void arcadeDrive(double leftAxis, double rightAxis) {
 
     float leftOutput = getVelocityOutput(driveLeft, leftAxis);
     float rightOutput = getVelocityOutput(driveLeft, rightAxis);
@@ -104,7 +104,7 @@ void arcadeDrive(int leftAxis, int rightAxis) {
     driveRight.move_velocity(leftOutput - rightOutput);
 
 }
-void tankDrive(int leftAxis, int rightAxis) {
+void tankDrive(double leftAxis, double rightAxis) {
 
     float leftOutput = getVelocityOutput(driveLeft, leftAxis);
     float rightOutput = getVelocityOutput(driveRight, rightAxis);
