@@ -76,6 +76,7 @@ void opcontrol() {
             arcadeDrive(returnExponential(leftYAxis), returnExponential(rightXAxis));
             runIntake();
             runPuncherToggle();
+            runWings();
             pros::delay(10);
         }
 }

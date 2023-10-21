@@ -33,9 +33,18 @@
 #define PORT_INTAKE 5
 
 /*
-############
--  INTAKE  -
-############
+#############
+-  PUNCHER  -
+#############
 */
 
 #define PORT_PUNCHER 6
+
+/*
+###########
+-  WINGS  -
+###########
+*/
+
+#define PORT_ADI_WING_LEFT 'E'
+#define PORT_ADI_WING_RIGHT 'F'
