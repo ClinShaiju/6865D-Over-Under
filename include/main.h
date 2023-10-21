@@ -81,6 +81,7 @@ void opcontrol(void);
 #include "globals.h"
 #include "subsystems/drivetrain.h"
 #include "subsystems/intake.h"
+#include "subsystems/puncher.h"
 #include "functions.h"
 #endif
 

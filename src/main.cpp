@@ -75,6 +75,7 @@ void opcontrol() {
             int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
             arcadeDrive(returnExponential(leftYAxis), returnExponential(rightXAxis));
             runIntake();
+            runPuncherToggle();
             pros::delay(10);
         }
 }
