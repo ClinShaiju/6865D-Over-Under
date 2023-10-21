@@ -11,11 +11,13 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 pros::Motor backLeft = pros::Motor(PORT_DRIVE_BACKLEFT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor frontLeft = pros::Motor(PORT_DRIVE_FRONTLEFT, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor middleLeft = pros::Motor(PORT_DRIVE_MIDDLELEFT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor frontRight = pros::Motor(PORT_DRIVE_FRONTRIGHT, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor backRight = pros::Motor(PORT_DRIVE_BACKRIGHT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor middleRight = pros::Motor(PORT_DRIVE_MIDDLERIGHT, pros::E_MOTOR_GEARSET_06, false);
 
-pros::Motor_Group driveLeft = pros::Motor_Group({backLeft, frontLeft});
-pros::Motor_Group driveRight = pros::Motor_Group({backRight, frontRight});
+pros::Motor_Group driveLeft = pros::Motor_Group({backLeft, frontLeft, middleLeft});
+pros::Motor_Group driveRight = pros::Motor_Group({backRight, frontRight, middleRight});
 
 lemlib::Drivetrain_t drivetrain {
         &driveLeft, // left drivetrain motors
