@@ -4,12 +4,12 @@
 double returnExponential(int axisValue) {
     double percentage = axisValue;
     if (percentage > 0) {
-        percentage = 1.2*pow(1.043, percentage) - 1.2 + 0.2 * percentage;
+        percentage = 1.2*pow(1.035664, percentage) - 1.2 + 0.2 * percentage;
     }
     else {
         percentage = -percentage;
 
-        percentage = 1.2*pow(1.043, percentage) - 1.2 + 0.2 * percentage;
+        percentage = 1.2*pow(1.035664, percentage) - 1.2 + 0.2 * percentage;
 
         percentage = -percentage;
     }
