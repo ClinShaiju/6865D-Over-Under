@@ -21,3 +21,13 @@ void runPuncherToggle() {
         puncherPressed = false;
     }
 }
+
+void startPuncher() {
+    puncherRunning = true;
+    puncher.move_velocity(getVelocityOutput(puncher, 127));
+}
+
+void stopPuncher() {
+    puncherRunning = false;
+    puncher = 0;
+}

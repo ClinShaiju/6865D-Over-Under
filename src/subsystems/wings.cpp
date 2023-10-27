@@ -13,3 +13,12 @@ void runWings() {
         wingRight.set_value(false);
     }
 }
+
+void wingsOut() {
+    wingLeft.set_value(true);
+    wingRight.set_value(true);
+}
+void wingsIn() {
+    wingLeft.set_value(false);
+    wingRight.set_value(false);
+}

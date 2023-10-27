@@ -11,3 +11,15 @@ void runIntake() {
     }
     else intake = 0;
 }
+
+void intakeIn() {
+    intake.move_velocity(getVelocityOutput(intake, 127));
+}
+
+void intakeOut() {
+    intake.move_velocity(getVelocityOutput(intake, -127));
+}
+
+void intakeStop() {
+    intake = 0;
+}

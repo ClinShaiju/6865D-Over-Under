@@ -42,12 +42,12 @@ lemlib::TrackingWheel yTracker(&yEncoder, 2.75, -0.0196850394, 1);
 pros::Imu inertial = pros::Imu(PORT_INERTIAL);
 
 lemlib::OdomSensors_t odomSensors {
-        &yTracker, // vertical tracking wheel 1
+        nullptr,//&yTracker, // vertical tracking wheel 1
         nullptr, // vertical tracking wheel 2
-        &xTracker, // horizontal tracking wheel 1
+        nullptr,//&xTracker, // horizontal tracking wheel 1
         nullptr, // we don't have a second tracking wheel, so we set it to nullptr
         &inertial, // inertial sensor
-        ((362.9323 / 360.0))
+        ((362.8 / 360.0))
 };
 
 /*
@@ -58,8 +58,8 @@ lemlib::OdomSensors_t odomSensors {
 
 //forward/backward pid
 lemlib::ChassisController_t lateralController {
-        8, // kP
-        30, // kD
+        11, // kP
+        5, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
@@ -69,8 +69,8 @@ lemlib::ChassisController_t lateralController {
 
 // turning PID
 lemlib::ChassisController_t angularController {
-        4, // kP
-        40, // kD
+    3, // kP
+        1, // kD
         1, // smallErrorRange
         100, // smallErrorTimeout
         3, // largeErrorRange
