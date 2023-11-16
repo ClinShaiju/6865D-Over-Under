@@ -17,6 +17,7 @@
 #include "pros/imu.hpp"
 #include "lemlib/asset.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
+#include "lemlib/chassis/ImuGroup.hpp"
 #include "lemlib/pose.hpp"
 #include "lemlib/logger.hpp"
 
@@ -39,8 +40,7 @@ typedef struct {
         TrackingWheel* vertical2;
         TrackingWheel* horizontal1;
         TrackingWheel* horizontal2;
-        pros::Imu* imu;
-        float errorMultiplier = 1;
+        ImuGroup* imu;
 } OdomSensors_t;
 
 /**

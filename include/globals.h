@@ -24,7 +24,8 @@
 #define PORT_ADI_YENCODER_TOP 'C'
 #define PORT_ADI_YENCODER_BOTTOM 'D'
 
-#define PORT_INERTIAL 4
+#define PORT_INERTIAL_1 4
+#define PORT_INERTIAL_2 21
 
 /*
 ############

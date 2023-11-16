@@ -40,15 +40,19 @@ pros::ADIEncoder yEncoder = pros::ADIEncoder(PORT_ADI_YENCODER_TOP, PORT_ADI_YEN
 lemlib::TrackingWheel xTracker(&xEncoder, 2.75, -1.00393701, 1);
 lemlib::TrackingWheel yTracker(&yEncoder, 2.75, -0.0196850394, 1);
 
-pros::Imu inertial = pros::Imu(PORT_INERTIAL);
+pros::Imu inertial1 = pros::Imu(PORT_INERTIAL_1);
+pros::Imu inertial2 = pros::Imu(PORT_INERTIAL_2);
+std::vector<pros::Imu*> imuList{&inertial1, &inertial2};
+std::vector<float> errorMultiplierList{1, 1};
+lemlib::ImuGroup imuGroup = lemlib::ImuGroup(imuList, errorMultiplierList);
+
 
 lemlib::OdomSensors_t odomSensors {
         nullptr,//&yTracker, // vertical tracking wheel 1
         nullptr, // vertical tracking wheel 2
         nullptr,//&xTracker, // horizontal tracking wheel 1
         nullptr, // we don't have a second tracking wheel, so we set it to nullptr
-        &inertial, // inertial sensor
-        ((362.8 / 360.0))
+        &imuGroup
 };
 
 /*
