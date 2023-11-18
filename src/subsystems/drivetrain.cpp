@@ -42,8 +42,8 @@ lemlib::TrackingWheel yTracker(&yEncoder, 2.75, -0.0196850394, 1);
 
 pros::Imu inertial1 = pros::Imu(PORT_INERTIAL_1);
 pros::Imu inertial2 = pros::Imu(PORT_INERTIAL_2);
-std::vector<pros::Imu*> imuList{&inertial1, &inertial2};
-std::vector<float> errorMultiplierList{1, 1};
+std::vector<pros::Imu*> imuList{&inertial2};
+std::vector<float> errorMultiplierList{1};
 lemlib::ImuGroup imuGroup = lemlib::ImuGroup(imuList, errorMultiplierList);
 
 
