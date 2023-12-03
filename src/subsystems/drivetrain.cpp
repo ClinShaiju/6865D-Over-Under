@@ -102,31 +102,11 @@ float getVelocityOutput(pros::MotorGroup &motors, int voltage) {
 
 }
 
-float getVelocityOutput(pros::Motor &motor, int voltage) {
-
-    float output = 0;
-    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_06) output = (600.0 / 127.0) * voltage;
-    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_18) output = (200.0 / 127.0) * voltage;
-    if (motor.get_gearing() == pros::E_MOTOR_GEARSET_36) output = (100.0 / 127.0) * voltage;
-    return output;
-
-}
-
 void arcadeDrive(double leftAxis, double rightAxis) {
-
-    float leftOutput = getVelocityOutput(driveLeft, leftAxis);
-    float rightOutput = getVelocityOutput(driveLeft, rightAxis);
-
-    driveLeft.move_velocity(leftOutput + rightOutput);
-    driveRight.move_velocity(leftOutput - rightOutput);
-
+    driveLeft = leftAxis + rightAxis;
+    driveRight = leftAxis - rightAxis;
 }
 void tankDrive(double leftAxis, double rightAxis) {
-
-    float leftOutput = getVelocityOutput(driveLeft, leftAxis);
-    float rightOutput = getVelocityOutput(driveRight, rightAxis);
-
-    driveLeft.move_velocity(leftOutput);
-    driveRight.move_velocity(rightOutput);
-
+    driveLeft = leftOutput;
+    driveRight = rightOutput;
 }
