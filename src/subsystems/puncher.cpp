@@ -8,7 +8,7 @@ void runPuncherToggle() {
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
         if (!puncherPressed) {
             if (!puncherRunning) {
-                puncher.move_velocity(getVelocityOutput(puncher, 127));
+                puncher = 127;
                 puncherRunning = true;
             }
             else {
@@ -24,7 +24,7 @@ void runPuncherToggle() {
 
 void startPuncher() {
     puncherRunning = true;
-    puncher.move_velocity(getVelocityOutput(puncher, 127));
+    puncher = 127;
 }
 
 void stopPuncher() {
