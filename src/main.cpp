@@ -7,8 +7,10 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
 void screen() {
     // loop forever
+    controller.clear();
     while (true) {
 
         float imu1RawHeading = imuGroup.get_raw_rotation(0) + 0;
@@ -24,6 +26,8 @@ void screen() {
         pros::lcd::print(3, "ImuGroup heading: %f", (int)(heading*1000)%360000/1000.0); // print the heading
         pros::lcd::print(4, "imu1: %f - raw: %f", (int)(imu1Heading*1000)%360000/1000.0, ((int)(imu1RawHeading*1000)%360000/1000.0)); // print the heading
 //        pros::lcd::print(5, "imu2: %f - raw: %f", (int)(imu2Heading*1000)%360000/1000.0, ((int)(imu2RawHeading*1000)%360000/1000.0)); // print the heading
+        pros::delay(40);
+        controller.print(1, 0, "%.1f %.1f; %.1f %.1f", leftType, leftT, rightType, rightT);
         pros::delay(10);
     }
 }
@@ -125,8 +129,7 @@ void competition_initialize() {}
 
 // Skills Auton
 void autonomous() {
-    tankDrive(-1, -1);
-//    chassis.setPose(32, 16, 180);
+    //    chassis.setPose(32, 16, 180);
 //    chassis.moveTo(18, 18, 45, 2000, false, false, 4000, 0.3);
     startPuncher();
 //    pros::delay(45000);
@@ -158,15 +161,21 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    // drive curve adjustments
+    leftType = 1;
+    rightType = 2;
+    leftT = 10;
+    rightT = 6;
     while (true) {
         int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-        arcadeDrive(returnExponential(leftYAxis), returnExponential(rightXAxis));
+
+//        runDriveCurveTester();
+        arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
         runIntake();
         runPuncherToggle();
         runWings();
         pros::delay(10);
     }
     // Set starting position
-
 }
