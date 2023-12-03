@@ -107,6 +107,6 @@ void arcadeDrive(double leftAxis, double rightAxis) {
     driveRight = leftAxis - rightAxis;
 }
 void tankDrive(double leftAxis, double rightAxis) {
-    driveLeft = leftOutput;
-    driveRight = rightOutput;
+    driveLeft = leftAxis;
+    driveRight = rightAxis;
 }
