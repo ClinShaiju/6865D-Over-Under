@@ -27,7 +27,7 @@ void screen() {
         pros::lcd::print(4, "imu1: %f - raw: %f", (int)(imu1Heading*1000)%360000/1000.0, ((int)(imu1RawHeading*1000)%360000/1000.0)); // print the heading
 //        pros::lcd::print(5, "imu2: %f - raw: %f", (int)(imu2Heading*1000)%360000/1000.0, ((int)(imu2RawHeading*1000)%360000/1000.0)); // print the heading
         pros::delay(40);
-        controller.print(1, 0, "%.1f %.1f; %.1f %.1f", leftType, leftT, rightType, rightT);
+        controller.print(1, 0, "%.1f %.1f; %.1f %.1f", pose.x, pose.y, pose.theta, rightT);
         pros::delay(10);
     }
 }
@@ -68,53 +68,59 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
+ASSET(endTriballPush_txt);
 
 // LemLib beta v0.5.0 code
-//// Right Side Auton
-//void autonomous() {
-//    // Set starting position
-//
-//    // Wings out to push alliance preload near goal
-//    pros::delay(200);
-//    wingsOut();
-//    pros::delay(200);
-//    wingsIn();
-//    pros::delay(500);
-//
-//    chassis.setPose(113, 18, 180);
-//
-//
-//    // Turn to face the inside of the field
-//    chassis.turnTo(113, 80, 2000);
-//
-//    // Arc turn to grab top left triball
-//    intakeIn(); // Start intake
-//    chassis.moveTo(77, 70, 310, 3000, false, true, 4000, 0.3);
-//    pros::delay(750); // Wait for triball to get in the intake
-//
-//    // Turn to goal and push 2 triballs in
-//    chassis.turnTo(120, 68, 1500); // Turn toward goal
-//    chassis.moveTo(107, 68, 90, 1200, true, true, 4000, 0.3); // Drive toward goal, async
-//    pros::delay(500); // Wait until triball is pushed in
-//    intakeOut(); // While driving, push out triball in intake
-//    pros::delay(1000); // Wait until triball is pushed in
-//    intakeStop(); // Stop intake
-//
-//    // Arc turn to middle left triball
-//    intakeIn(); // Start intake
-//    chassis.moveTo(78, 48, 270, 2000, false, true, 4000, 0.3); // Async
-//
-//    // Maneuver around side of goal to push alliance triball and triball in intake into the goal
-//    chassis.turnTo(120, 25, 2000); // Turn to face a bit before the goal
-//    chassis.moveTo(120, 25, 100, 2000, false, true, 4000, 0.3); //Drive to a bit before the goal
-//    chassis.moveTo(129, 55, 0, 2000, true, true, 4000, 0.3); // Push 2 triballs in
-//    intakeOut(); // Release the triball in intake
-//    pros::delay(2000);
-//
-//    // Move away from side of goal
-//    chassis.moveTo(129, 40, 0, 2000, false, false, 4000, 0.3);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                0, 2000, false, false, 4000, 0.3);
-//}
+// Far Side Auton
 
+void autonomous() {
+    // Set starting position
+
+    // Wings out to push alliance preload near goal
+    pros::delay(200);
+    wingsOut();
+    pros::delay(200);
+    wingsIn();
+    pros::delay(500);
+
+    chassis.setPose(113, 18, 180);
+
+
+    // Turn to face the inside of the field
+    chassis.turnTo(113, 80, 2000);
+
+    // Arc turn to grab top left triball
+    intakeIn(); // Start intake
+    chassis.moveTo(77, 70, 310, 3000, false, true, 4000, 0.3);
+    pros::delay(750); // Wait for triball to get in the intake
+
+    // Turn to goal and push 2 triballs in
+    chassis.turnTo(120, 68, 1500); // Turn toward goal
+    chassis.moveTo(107, 68, 90, 1200, true, true, 4000, 0.3); // Drive toward goal, async
+    pros::delay(500); // Wait until triball is pushed in
+    intakeOut(); // While driving, push out triball in intake
+    pros::delay(1000); // Wait until triball is pushed in
+    intakeStop(); // Stop intake
+
+    // Arc turn to middle left triball
+    intakeIn(); // Start intake
+    chassis.moveTo(78, 48, 270, 2000, false, true, 4000, 0.3); // Async
+
+    // Maneuver around side of goal to push alliance triball and triball in intake into the goal
+    chassis.turnTo(120, 25, 2000);
+
+    chassis.setPose(11.249, -24.521, chassis.getPose().theta);
+    chassis.follow(endTriballPush_txt, 1600, 10); // Move with Pure Pursuit in front of goal
+
+
+
+    intakeOut(); // Release the triball in intake
+    chassis.moveTo(60.217, -20.699, 0, 2000, false, true, 4000, 0.3);
+
+    // Move away from side of goal
+    chassis.moveTo(60.217, -40.699, 0, 2000, false, false, 4000, 0.3);
+    chassis.moveTo(60.217, -20.699, 0, 2000, false, true, 4000, 0.3);
+}
 //// Left Side Auton
 //void autonomous() {
 //    chassis.setPose(32, 16, 180);
@@ -125,26 +131,29 @@ void competition_initialize() {}
 //    pros::delay(500);
 //    chassis.moveTo(32, 16, 45, 2000, false, false, 4000, 0.3);
 //    chassis.moveTo(32, 16, 45, 2000, false, false, 4000, 0.3);
+//// Skills Auton
+//void autonomous() {
+//    //    chassis.setPose(32, 16, 180);
+////    chassis.moveTo(18, 18, 45, 2000, false, false, 4000, 0.3);
+//    startPuncher();
+////    pros::delay(45000);
+////    chassis.moveTo(108, 12, 90, 2000, false, true, 4000, 0.3);
+////    chassis.turnTo(50, 12, 2000);
+////    stopPuncher();
+////    wingsOut();
+////    chassis.moveTo(132, 24, 180, 2000, false, false, 4000, 0.3);
+////    wingsIn();
+////    chassis.turnTo(144, 24, 2000);
+////    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
+////    chassis.turnTo(84, 0, 2000);
+////    wingsOut();
+////    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
 //}
 
-// Skills Auton
-void autonomous() {
-    //    chassis.setPose(32, 16, 180);
-//    chassis.moveTo(18, 18, 45, 2000, false, false, 4000, 0.3);
-    startPuncher();
-//    pros::delay(45000);
-//    chassis.moveTo(108, 12, 90, 2000, false, true, 4000, 0.3);
-//    chassis.turnTo(50, 12, 2000);
-//    stopPuncher();
-//    wingsOut();
-//    chassis.moveTo(132, 24, 180, 2000, false, false, 4000, 0.3);
-//    wingsIn();
-//    chassis.turnTo(144, 24, 2000);
-//    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
-//    chassis.turnTo(84, 0, 2000);
-//    wingsOut();
-//    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
-}
+//}
+
+//}
+
 
 
 /**
