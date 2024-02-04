@@ -4,3 +4,4 @@ void runIntake();
 void intakeIn();
 void intakeOut();
 void intakeStop();
+void dropIntake();
