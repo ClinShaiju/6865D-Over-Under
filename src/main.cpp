@@ -27,7 +27,7 @@ void screen() {
         pros::lcd::print(4, "imu1: %f - raw: %f", (int)(imu1Heading*1000)%360000/1000.0, ((int)(imu1RawHeading*1000)%360000/1000.0)); // print the heading
 //        pros::lcd::print(5, "imu2: %f - raw: %f", (int)(imu2Heading*1000)%360000/1000.0, ((int)(imu2RawHeading*1000)%360000/1000.0)); // print the heading
         pros::delay(40);
-        controller.print(1, 0, "%.1f %.1f; %.1f %.1f",leftType, leftT, rightType, rightT);
+        controller.print(1, 0, "%.1f %.1f %.1f", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
         pros::delay(10);
     }
 }
@@ -74,23 +74,9 @@ void competition_initialize() {}
 // Far Side Auton
 
 void autonomous() {
-}//000, false, true, 4000, 0.3);
-////    chassis.turnTo(50, 12, 2000);
-////    stopPuncher();
-////    wingsOut();
-////    chassis.moveTo(132, 24, 180, 2000, false, false, 4000, 0.3);
-////    wingsIn();
-////    chassis.turnTo(144, 24, 2000);
-////    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
-////    chassis.turnTo(84, 0, 2000);
-////    wingsOut();
-////    chassis.moveTo(84, 24, 90, 2000, false, false, 4000, 0.3);
-//}
-
-//}
-
-//}
-
+    chassis.moveToPose(0, 10, 0, 2000);
+    chassis.waitUntilDone();
+}
 
 
 /**
@@ -107,23 +93,24 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    // drive curve adjustments
-    leftType = 1;
-    rightType = 2;
-    leftT = 10;
-    rightT = 6;
-    dropIntake();
-    while (true) {
-        int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-
-        runDriveCurveTester();
-        arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
-        runIntake();
-        runPuncherToggle();
-        runWings();
-        runSideHangToggle();
-        pros::delay(10);
-    }
-    // Set starting position
+//    // drive curve adjustments
+//    leftType = 1;
+//    rightType = 2;
+//    leftT = 10;
+//    rightT = 6;
+//    dropIntake();
+//    while (true) {
+//        int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+//        int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+//
+//        runDriveCurveTester();
+//        arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
+//        runIntake();
+//        runPuncherToggle();
+//        runWings();
+//        runSideHangToggle();
+//        pros::delay(10);
+//    }
+    chassis.moveToPose(0, 10, 0, 2000);
+    chassis.waitUntilDone();
 }

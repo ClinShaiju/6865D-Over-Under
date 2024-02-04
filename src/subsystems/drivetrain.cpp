@@ -19,14 +19,44 @@ pros::Motor middleRight = pros::Motor(PORT_DRIVE_MIDDLERIGHT, pros::E_MOTOR_GEAR
 pros::Motor_Group driveLeft = pros::Motor_Group({backLeft, frontLeft, middleLeft});
 pros::Motor_Group driveRight = pros::Motor_Group({backRight, frontRight, middleRight});
 
-lemlib::Drivetrain_t drivetrain {
-        &driveLeft, // left drivetrain motors
-        &driveRight, // right drivetrain motors
-        12.5590551, // track width
-        4, // wheel diameter
-        300, // wheel rpm
-        4000 // chase power
-};
+// drivetrain settings
+lemlib::Drivetrain drivetrain(&driveLeft, // left motor group
+                              &driveRight, // right motor group
+                              10, // 10 inch track width
+                              lemlib::Omniwheel::NEW_4, // using new 4" omnis
+                              300, // drivetrain rpm is 300
+                              8 // chase power is 2. If we had traction wheels, it would have been 8
+);
+
+/*
+###############
+-  DRIVE PID  -
+###############
+*/
+
+// lateral motion controller
+lemlib::ControllerSettings linearController(0, // proportional gain (kP)
+                                            0, // integral gain (kI)
+                                            0, // derivative gain (kD)
+                                            3, // anti windup
+                                            1, // small error range, in inches
+                                            100, // small error range timeout, in milliseconds
+                                            3, // large error range, in inches
+                                            500, // large error range timeout, in milliseconds
+                                            20 // maximum acceleration (slew)
+);
+
+// angular motion controller
+lemlib::ControllerSettings angularController(0, // proportional gain (kP)
+                                             0, // integral gain (kI)
+                                             0, // derivative gain (kD)
+                                             3, // anti windup
+                                             1, // small error range, in degrees
+                                             100, // small error range timeout, in milliseconds
+                                             3, // large error range, in degrees
+                                             500, // large error range timeout, in milliseconds
+                                             0 // maximum acceleration (slew)
+);
 
 /*
 ##############
@@ -42,48 +72,18 @@ lemlib::Drivetrain_t drivetrain {
 
 pros::Imu inertial1 = pros::Imu(PORT_INERTIAL_1);
 pros::Imu inertial2 = pros::Imu(PORT_INERTIAL_2);
-std::vector<pros::Imu*> imuList{&inertial1};
+std::vector<pros::Imu *> imuList{&inertial1};
 std::vector<float> errorMultiplierList{1};
 lemlib::ImuGroup imuGroup = lemlib::ImuGroup(imuList, errorMultiplierList);
 
+lemlib::OdomSensors odomSensors(nullptr, // vertical tracking wheel 1, set to null
+                                nullptr, // vertical tracking wheel 2, set to nullptr as we are using IMEs
+                                nullptr, // horizontal tracking wheel 1
+                                nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
+                                &imuGroup // inertial sensor
+);
 
-lemlib::OdomSensors_t odomSensors {
-        nullptr,//&yTracker, // vertical tracking wheel 1
-        nullptr, // vertical tracking wheel 2
-        nullptr,//&xTracker, // horizontal tracking wheel 1
-        nullptr, // we don't have a second tracking wheel, so we set it to nullptr
-        nullptr
-};
-
-/*
-###############
--  DRIVE PID  -
-###############
-*/
-
-//forward/backward pid
-lemlib::ChassisController_t lateralController {
-        11, // kP
-        5, // kD
-        1, // smallErrorRange
-        100, // smallErrorTimeout
-        3, // largeErrorRange
-        500, // largeErrorTimeout
-        5 // slew rate
-};
-
-// turning PID
-lemlib::ChassisController_t angularController {
-    3, // kP
-        1, // kD
-        1, // smallErrorRange
-        100, // smallErrorTimeout
-        3, // largeErrorRange
-        500, // largeErrorTimeout
-        0 // slew rate
-};
-
-lemlib::Chassis chassis = lemlib::Chassis(drivetrain, lateralController, angularController, odomSensors);
+lemlib::Chassis chassis = lemlib::Chassis(drivetrain, linearController, angularController, odomSensors);
 
 
 /*
@@ -106,6 +106,7 @@ void arcadeDrive(double leftAxis, double rightAxis) {
     driveLeft = leftAxis + rightAxis;
     driveRight = leftAxis - rightAxis;
 }
+
 void tankDrive(double leftAxis, double rightAxis) {
     driveLeft = leftAxis;
     driveRight = rightAxis;

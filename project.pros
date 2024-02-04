@@ -5,7 +5,7 @@
         "target": "v5",
         "templates": {
             "LemLib": {
-                "location": "C:\\Users\\SHAIJCLI000\\AppData\\Roaming\\PROS\\templates\\LemLib@0.5.0+2",
+                "location": "C:\\Users\\SHAIJCLI000\\AppData\\Roaming\\PROS\\templates\\LemLib@0.5.0-rc.5+1",
                 "metadata": {
                     "origin": "local"
                 },
@@ -13,22 +13,35 @@
                 "py/object": "pros.conductor.templates.local_template.LocalTemplate",
                 "supported_kernels": "^3.8.0",
                 "system_files": [
+                    "static\\example.txt",
                     "include\\lemlib\\api.hpp",
-                    "include\\lemlib\\chassis\\chassis.hpp",
-                    "include\\lemlib\\asset.hpp",
-                    "include\\lemlib\\util.hpp",
-                    "include\\lemlib\\pose.hpp",
-                    "include\\lemlib\\pid.hpp",
-                    "include\\lemlib\\logger.hpp",
-                    "firmware\\asset.mk",
+                    "include\\lemlib\\logger\\infoSink.hpp",
                     "firmware\\LemLib.a",
-                    "include\\lemlib\\chassis\\ImuGroup.hpp",
+                    "include\\lemlib\\pose.hpp",
+                    "include\\fmt\\args.h",
+                    "include\\lemlib\\logger\\buffer.hpp",
+                    "include\\fmt\\format-inl.h",
+                    "include\\lemlib\\logger\\baseSink.hpp",
+                    "include\\fmt\\format.h",
                     "include\\lemlib\\chassis\\odom.hpp",
-                    "include\\lemlib\\chassis\\trackingWheel.hpp"
+                    "include\\lemlib\\chassis\\ImuGroup.hpp",
+                    "firmware\\asset.mk",
+                    "include\\fmt\\core.h",
+                    "include\\lemlib\\logger\\stdout.hpp",
+                    "include\\lemlib\\asset.hpp",
+                    "include\\lemlib\\exitcondition.hpp",
+                    "include\\lemlib\\logger\\message.hpp",
+                    "include\\lemlib\\logger\\logger.hpp",
+                    "include\\lemlib\\logger\\telemetrySink.hpp",
+                    "include\\lemlib\\chassis\\trackingWheel.hpp",
+                    "include\\lemlib\\timer.hpp",
+                    "include\\lemlib\\util.hpp",
+                    "include\\lemlib\\pid.hpp",
+                    "include\\lemlib\\chassis\\chassis.hpp"
                 ],
                 "target": "v5",
                 "user_files": [],
-                "version": "0.5.0+2"
+                "version": "0.5.0-rc.5+1"
             },
             "kernel": {
                 "location": "/home/cvslinc/.config/pros/templates/kernel@3.8.0",
