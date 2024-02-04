@@ -83,6 +83,7 @@ void opcontrol(void);
 #include "subsystems/intake.h"
 #include "subsystems/puncher.h"
 #include "subsystems/wings.h"
+#include "subsystems/hang.h"
 #include "functions.h"
 #endif
 
