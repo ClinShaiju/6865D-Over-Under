@@ -13,16 +13,16 @@
 #define PORT_DRIVE_FRONTRIGHT 9
 #define PORT_DRIVE_BACKRIGHT 10
 
-/*
-##############
--  ODOMETRY  -
-##############
-*/
-
-#define PORT_ADI_XENCODER_TOP 'A'
-#define PORT_ADI_XENCODER_BOTTOM 'B'
-#define PORT_ADI_YENCODER_TOP 'C'
-#define PORT_ADI_YENCODER_BOTTOM 'D'
+///*
+//##############
+//-  ODOMETRY  -
+//##############
+//*/
+//
+//#define PORT_ADI_XENCODER_TOP 'A'
+//#define PORT_ADI_XENCODER_BOTTOM 'B'
+//#define PORT_ADI_YENCODER_TOP 'C'
+//#define PORT_ADI_YENCODER_BOTTOM 'D'
 
 #define PORT_INERTIAL_1 4
 #define PORT_INERTIAL_2 21
@@ -49,5 +49,29 @@
 ###########
 */
 
-#define PORT_ADI_WING_LEFT 'E'
-#define PORT_ADI_WING_RIGHT 'F'
+#define PORT_ADI_WING_LEFT 'C'
+#define PORT_ADI_WING_RIGHT 'D'
+
+/*
+###############
+-  SIDE HANG  -
+###############
+*/
+
+#define PORT_ADI_SIDE_HANG 'B'
+
+/*
+###################
+-  INTAKE HOLDER  -
+###################
+*/
+
+#define PORT_ADI_INTAKE_HOLDER 'A'
+
+/*
+###########
+-  LIFT  -
+##########
+*/
+
+#define PORT_ADI_LIFT 'E'
