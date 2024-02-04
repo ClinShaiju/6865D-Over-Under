@@ -5,7 +5,7 @@ double returnExponential(int axisValue, int, float);
 
 extern float rightT, leftT;
 extern int rightType, leftType;
-void runDriveCurveTest();
+void runDriveCurveTester();
 
 template <typename T> int sgn(T val);
 
