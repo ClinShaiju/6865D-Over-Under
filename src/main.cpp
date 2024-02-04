@@ -27,7 +27,7 @@ void screen() {
         pros::lcd::print(4, "imu1: %f - raw: %f", (int)(imu1Heading*1000)%360000/1000.0, ((int)(imu1RawHeading*1000)%360000/1000.0)); // print the heading
 //        pros::lcd::print(5, "imu2: %f - raw: %f", (int)(imu2Heading*1000)%360000/1000.0, ((int)(imu2RawHeading*1000)%360000/1000.0)); // print the heading
         pros::delay(40);
-        controller.print(1, 0, "%.1f %.1f; %.1f %.1f", pose.x, pose.y, pose.theta, rightT);
+        controller.print(1, 0, "%.1f %.1f; %.1f %.1f",leftType, leftT, rightType, rightT);
         pros::delay(10);
     }
 }
@@ -68,76 +68,13 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-ASSET(endTriballPush_txt);
+//ASSET(endTriballPush_txt);
 
 // LemLib beta v0.5.0 code
 // Far Side Auton
 
 void autonomous() {
-    // Set starting position
-
-    // Wings out to push alliance preload near goal
-    pros::delay(200);
-    wingsOut();
-    pros::delay(200);
-    wingsIn();
-    pros::delay(500);
-
-    chassis.setPose(113, 18, 180);
-
-
-    // Turn to face the inside of the field
-    chassis.turnTo(113, 80, 2000);
-
-    // Arc turn to grab top left triball
-    intakeIn(); // Start intake
-    chassis.moveTo(77, 70, 310, 3000, false, true, 4000, 0.3);
-    pros::delay(750); // Wait for triball to get in the intake
-
-    // Turn to goal and push 2 triballs in
-    chassis.turnTo(120, 68, 1500); // Turn toward goal
-    chassis.moveTo(107, 68, 90, 1200, true, true, 4000, 0.3); // Drive toward goal, async
-    pros::delay(500); // Wait until triball is pushed in
-    intakeOut(); // While driving, push out triball in intake
-    pros::delay(1000); // Wait until triball is pushed in
-    intakeStop(); // Stop intake
-
-    // Arc turn to middle left triball
-    intakeIn(); // Start intake
-    chassis.moveTo(78, 48, 270, 2000, false, true, 4000, 0.3); // Async
-
-    // Maneuver around side of goal to push alliance triball and triball in intake into the goal
-    chassis.turnTo(120, 25, 2000);
-
-    chassis.setPose(11.249, -24.521, chassis.getPose().theta);
-    chassis.follow(endTriballPush_txt, 1600, 10); // Move with Pure Pursuit in front of goal
-
-
-
-    intakeOut(); // Release the triball in intake
-    chassis.moveTo(60.217, -20.699, 0, 2000, false, true, 4000, 0.3);
-
-    // Move away from side of goal
-    chassis.moveTo(60.217, -40.699, 0, 2000, false, false, 4000, 0.3);
-    chassis.moveTo(60.217, -20.699, 0, 2000, false, true, 4000, 0.3);
-}
-//// Left Side Auton
-//void autonomous() {
-//    chassis.setPose(32, 16, 180);
-//    chassis.moveTo(12, 48, 180, 2000, false, false, 4000, 0.3);
-//    pros::delay(500);
-//    intakeOut();
-//    chassis.moveTo(69, 12, 90, 2000, false, true, 4000, 0.6);
-//    pros::delay(500);
-//    chassis.moveTo(32, 16, 45, 2000, false, false, 4000, 0.3);
-//    chassis.moveTo(32, 16, 45, 2000, false, false, 4000, 0.3);
-//// Skills Auton
-//void autonomous() {
-//    //    chassis.setPose(32, 16, 180);
-////    chassis.moveTo(18, 18, 45, 2000, false, false, 4000, 0.3);
-//    startPuncher();
-////    pros::delay(45000);
-////    chassis.moveTo(108, 12, 90, 2000, false, true, 4000, 0.3);
+}//000, false, true, 4000, 0.3);
 ////    chassis.turnTo(50, 12, 2000);
 ////    stopPuncher();
 ////    wingsOut();
@@ -175,15 +112,17 @@ void opcontrol() {
     rightType = 2;
     leftT = 10;
     rightT = 6;
+    dropIntake();
     while (true) {
         int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
-//        runDriveCurveTester();
+        runDriveCurveTester();
         arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
         runIntake();
         runPuncherToggle();
         runWings();
+        runSideHangToggle();
         pros::delay(10);
     }
     // Set starting position
