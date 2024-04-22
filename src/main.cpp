@@ -1,6 +1,9 @@
 #include "main.h"
 #include "subsystems/drivetrain.h"
 
+
+LV_IMG_DECLARE(Buccees);
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -8,34 +11,11 @@
  * to keep execution time for this mode under a few seconds.
  */
 
-void screen() {
-    // loop forever
-    controller.clear();
-    while (true) {
-
-        float imu1RawHeading = imuGroup.get_raw_rotation(0) + 0;
-//        float imu2RawHeading = imuGroup.get_raw_rotation(1) + 0;
-        float imu1Heading = imuGroup.get_rotation(0) + 0;
-//        float imu2Heading = imuGroup.get_rotation(1) + 0;
-        float heading = imuGroup.get_rotation() + 0;
-
-        lemlib::Pose pose = chassis.getPose(); // get the current position of the robot
-        pros::lcd::print(0, "x: %f", pose.x); // print the x position
-        pros::lcd::print(1, "y: %f", pose.y); // print the y position
-        pros::lcd::print(2, "lemlib heading: %f", pose.theta); // print the heading
-        pros::lcd::print(3, "ImuGroup heading: %f", (int)(heading*1000)%360000/1000.0); // print the heading
-        pros::lcd::print(4, "imu1: %f - raw: %f", (int)(imu1Heading*1000)%360000/1000.0, ((int)(imu1RawHeading*1000)%360000/1000.0)); // print the heading
-//        pros::lcd::print(5, "imu2: %f - raw: %f", (int)(imu2Heading*1000)%360000/1000.0, ((int)(imu2RawHeading*1000)%360000/1000.0)); // print the heading
-        pros::delay(40);
-        controller.print(1, 0, "%.1f %.1f %.1f", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
-        pros::delay(10);
-    }
-}
 
 void initialize() {
-    pros::lcd::initialize();
-    pros::Task screenTask(screen);
-
+    lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
+    lv_img_set_src(img1, &Buccees);
+    lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
     chassis.calibrate();
 }
 
@@ -72,10 +52,148 @@ void competition_initialize() {}
 
 // LemLib beta v0.5.0 code
 // Far Side Auton
+ASSET(underbar_txt);
+
+void skillsAuton() {
+    startPuncher();
+    chassis.setPose(-45.252, -53.523, 55);
+    pros::delay(45000);
+    stopPuncher();
+    chassis.turnTo(-32, -59, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(35.5, -58, 90, 2000);
+    chassis.waitUntilDone();
+    chassis.turnTo(35.5, -50, 2000);
+    chassis.waitUntilDone();
+
+    chassis.moveToPose(35.5, -40, 0, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(16, -12, 45, 2000);
+    chassis.waitUntilDone();
+    frontWingsOut();
+    chassis.moveToPose(48, 0, 90, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(30, 0, 90, 2000, {.forwards=false});
+
+}
+
+void far5ball() {
+    chassis.setPose(41.5, -47.75, 0);
+    intakeIn();
+    chassis.moveToPose(10, 0, -42, 2500); // Top left triball
+    frontRightWingOut();
+    pros::delay(500);
+    frontRightWingIn();
+    chassis.waitUntil(50);
+    chassis.cancelAllMotions();
+    chassis.moveToPose(48, 3, 90, 1500); // Push both triballs into goal
+    chassis.waitUntil(5);
+    frontLeftWingOut();
+    chassis.waitUntil(10);
+    frontRightWingOut();
+    chassis.waitUntil(30);
+    intakeOut();
+    chassis.waitUntil(32);
+    chassis.cancelAllMotions();
+    chassis.moveToPose(30, 3, 90, 2000, {.forwards = false}); // Backwards
+    frontWingsIn();
+    chassis.waitUntil(10);
+    chassis.cancelAllMotions();
+    chassis.moveToPose(8, -14, 250, 1500); // Grab bottom left triball
+    intakeIn();
+    chassis.waitUntilDone();
+    chassis.setPose(9, -20, chassis.getPose().theta);
+
+    chassis.moveToPose(45, -3, 90, 2000); // Push both triballs into goal
+    chassis.waitUntil(20);
+    frontWingsOut();
+    intakeOut();
+    chassis.waitUntilDone();
+    chassis.moveToPose(30, -3, 90, 2000, {.forwards = false}); // Backwards
+    frontWingsIn();
+    chassis.waitUntil(8);
+    chassis.cancelAllMotions();
+    chassis.moveToPose(35, -56, 170, 1500);
+    chassis.waitUntilDone();
+    chassis.moveToPose(15, -56,270, 1500);
+    intakeIn();
+    chassis.waitUntilDone();
+    chassis.moveToPose(38, -48, 240, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+//    chassis.moveToPose(55, -38, 200, 1500);
+//    chassis.waitUntilDone();
+    chassis.moveToPose(60, -16, 180, 1500, {.forwards=false, .minSpeed=127});
+    intakeOut();
+
+    chassis.waitUntilDone();
+}
+void close3ball() {
+    chassis.setPose(-41.5, -47.75, 0);
+    intakeIn();
+    chassis.moveToPose(-24, 0, 0, 2000);
+    chassis.waitUntil(48);
+    chassis.cancelAllMotions();
+    chassis.moveToPose(-48, -48, 90, 2000, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.moveToPose(0, -60, 270, 2000);
+    intakeOut();
+    chassis.waitUntilDone();
+
+
+}
+
+void farSafe2ball() {
+    chassis.setPose(10, -60, 270);
+    intakeIn();
+    chassis.moveToPose(0, -60, 270, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(36, -60, 270, 2000, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.moveToPose(60, -30, 180, 2000, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.moveToPoint(48, -48, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPose(55,-30, 0, 2000);
+    chassis.waitUntil(5);
+    intakeOut();
+    chassis.waitUntilDone();
+    chassis.moveToPoint(55, -40, 2000, false);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(55, -30, 2000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(55, -40, 2000, false);
+    chassis.waitUntilDone();
+}
+void oneball() {
+    chassis.moveToPoint(0, -60, 2000, false);
+    chassis.moveToPoint(0, 0, 500, true);
+
+}
+void awp() {
+    chassis.setPose(-51, -59, 135);
+    backRightWingOut();
+    pros::delay(1000);
+    chassis.turnTo(-60,60,1000,true);
+    chassis.waitUntilDone();
+    backWingsIn();
+    chassis.turnTo(-10,-64,1000,true);
+    chassis.waitUntilDone();
+
+    chassis.moveToPose(-14, -60, 90, 2000);
+    chassis.waitUntilDone();
+    intakeOut();
+
+
+}
 
 void autonomous() {
-    chassis.moveToPose(0, 10, 0, 2000);
-    chassis.waitUntilDone();
+    dropIntake();
+//    oneball();
+    far5ball();
+//    close3ball();
+//    farSafe2ball();
+//    skillsAuton();
+//    awp();
 }
 
 
@@ -93,24 +211,25 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-//    // drive curve adjustments
-//    leftType = 1;
-//    rightType = 2;
-//    leftT = 10;
-//    rightT = 6;
-//    dropIntake();
-//    while (true) {
-//        int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-//        int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-//
+    // drive curve adjustments
+    leftType = 1;
+    rightType = 2;
+    leftT = 10;
+    rightT = 6;
+    dropIntake();
+    while (true) {
+        int leftYAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int rightXAxis = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+
 //        runDriveCurveTester();
-//        arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
-//        runIntake();
-//        runPuncherToggle();
-//        runWings();
-//        runSideHangToggle();
-//        pros::delay(10);
-//    }
-    chassis.moveToPose(0, 10, 0, 2000);
-    chassis.waitUntilDone();
-}
+        arcadeDrive(returnExponential(leftYAxis, leftType, leftT), returnExponential(rightXAxis, rightType, rightT));
+        runIntake();
+        runPuncherToggle();
+        runFrontWings();
+        runBackWings();
+        runSideHangToggle();
+        runMainHangToggle();
+        pros::delay(10);
+    }
+
+};;

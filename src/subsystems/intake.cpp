@@ -1,10 +1,10 @@
 #include "main.h"
 
 pros::Motor intake = pros::Motor(PORT_INTAKE, pros::E_MOTOR_GEARSET_18, true);
-pros::ADIDigitalOut intakeHolder(PORT_ADI_INTAKE_HOLDER, true);
+pros::ADIDigitalOut intakeHolder(PORT_ADI_INTAKE_HOLDER, false);
 
 void dropIntake() {
-    intakeHolder.set_value(false);
+    intakeHolder.set_value(true);
 }
 
 void runIntake() {

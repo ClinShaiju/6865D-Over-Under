@@ -1,5 +1,17 @@
 #include "main.h"
 
-void runWings();
-void wingsIn();
-void wingsOut();
+void runFrontWings();
+void frontWingsIn();
+void frontWingsOut();
+void frontLeftWingIn();
+void frontRightWingIn();
+void frontLeftWingOut();
+void frontRightWingOut();
+
+void runBackWings();
+void backWingsIn();
+void backWingsOut();
+void backLeftWingOut();
+void backRightWingOut();
+void frontLeftWingIn();
+void frontRightWingIn();

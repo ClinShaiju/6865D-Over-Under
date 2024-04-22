@@ -6,12 +6,12 @@
 ################
 */
 
-#define PORT_DRIVE_BACKLEFT 1
-#define PORT_DRIVE_FRONTLEFT 2
-#define PORT_DRIVE_MIDDLELEFT 3
-#define PORT_DRIVE_MIDDLERIGHT 8
-#define PORT_DRIVE_FRONTRIGHT 9
-#define PORT_DRIVE_BACKRIGHT 10
+#define PORT_DRIVE_BACKLEFT 10
+#define PORT_DRIVE_FRONTLEFT 9
+#define PORT_DRIVE_MIDDLELEFT 8
+#define PORT_DRIVE_MIDDLERIGHT 3
+#define PORT_DRIVE_FRONTRIGHT 2
+#define PORT_DRIVE_BACKRIGHT 1
 
 ///*
 //##############
@@ -49,8 +49,11 @@
 ###########
 */
 
-#define PORT_ADI_WING_LEFT 'C'
-#define PORT_ADI_WING_RIGHT 'D'
+#define PORT_ADI_FRONT_WING_LEFT 'A'
+#define PORT_ADI_FRONT_WING_RIGHT 'B'
+
+#define PORT_ADI_BACK_WING_RIGHT 'C'
+#define PORT_ADI_BACK_WING_LEFT 'D'
 
 /*
 ###############
@@ -58,7 +61,8 @@
 ###############
 */
 
-#define PORT_ADI_SIDE_HANG 'B'
+#define PORT_ADI_SIDE_HANG 'F'
+#define PORT_ADI_MAIN_HANG 'G'
 
 /*
 ###################
@@ -66,12 +70,4 @@
 ###################
 */
 
-#define PORT_ADI_INTAKE_HOLDER 'A'
-
-/*
-###########
--  LIFT  -
-##########
-*/
-
-#define PORT_ADI_LIFT 'E'
+#define PORT_ADI_INTAKE_HOLDER 'E'

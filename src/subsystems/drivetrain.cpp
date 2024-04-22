@@ -22,7 +22,7 @@ pros::Motor_Group driveRight = pros::Motor_Group({backRight, frontRight, middleR
 // drivetrain settings
 lemlib::Drivetrain drivetrain(&driveLeft, // left motor group
                               &driveRight, // right motor group
-                              10, // 10 inch track width
+                              11.875, // 10 inch track width
                               lemlib::Omniwheel::NEW_4, // using new 4" omnis
                               300, // drivetrain rpm is 300
                               8 // chase power is 2. If we had traction wheels, it would have been 8
@@ -35,9 +35,9 @@ lemlib::Drivetrain drivetrain(&driveLeft, // left motor group
 */
 
 // lateral motion controller
-lemlib::ControllerSettings linearController(0, // proportional gain (kP)
+lemlib::ControllerSettings linearController(40, // proportional gain (kP)
                                             0, // integral gain (kI)
-                                            0, // derivative gain (kD)
+                                            250, // derivative gain (kD)
                                             3, // anti windup
                                             1, // small error range, in inches
                                             100, // small error range timeout, in milliseconds
@@ -47,9 +47,9 @@ lemlib::ControllerSettings linearController(0, // proportional gain (kP)
 );
 
 // angular motion controller
-lemlib::ControllerSettings angularController(0, // proportional gain (kP)
+lemlib::ControllerSettings angularController(3, // proportional gain (kP)
                                              0, // integral gain (kI)
-                                             0, // derivative gain (kD)
+                                             22, // derivative gain (kD)
                                              3, // anti windup
                                              1, // small error range, in degrees
                                              100, // small error range timeout, in milliseconds

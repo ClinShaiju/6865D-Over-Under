@@ -24,7 +24,7 @@ void runPuncherToggle() {
 
 void startPuncher() {
     puncherRunning = true;
-    puncher = 100;
+    puncher = 127;
 }
 
 void stopPuncher() {

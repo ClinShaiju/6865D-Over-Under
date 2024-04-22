@@ -1,24 +1,79 @@
 #include "main.h"
 
-pros::ADIDigitalOut wingLeft(PORT_ADI_WING_LEFT, false);
-pros::ADIDigitalOut wingRight(PORT_ADI_WING_RIGHT, false);
+pros::ADIDigitalOut frontWingLeft(PORT_ADI_FRONT_WING_LEFT, false);
+pros::ADIDigitalOut frontWingRight(PORT_ADI_FRONT_WING_RIGHT, false);
 
+pros::ADIDigitalOut backWingLeft(PORT_ADI_BACK_WING_LEFT, false);
+pros::ADIDigitalOut backWingRight(PORT_ADI_BACK_WING_RIGHT, false);
 
-void runWings() {
+void runFrontWings() {
     if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
-        wingLeft.set_value(true);
-        wingRight.set_value(true);
+        frontWingLeft.set_value(true);
+        frontWingRight.set_value(true);
     } else {
-        wingLeft.set_value(false);
-        wingRight.set_value(false);
+        frontWingLeft.set_value(false);
+        frontWingRight.set_value(false);
     }
 }
 
-void wingsOut() {
-    wingLeft.set_value(true);
-    wingRight.set_value(true);
+void frontWingsOut() {
+    frontWingLeft.set_value(true);
+    frontWingRight.set_value(true);
 }
-void wingsIn() {
-    wingLeft.set_value(false);
-    wingRight.set_value(false);
+
+void frontWingsIn() {
+    frontWingLeft.set_value(false);
+    frontWingRight.set_value(false);
+}
+
+void frontLeftWingOut() {
+    frontWingLeft.set_value(true);
+}
+
+void frontLeftWingIn() {
+    frontWingLeft.set_value(false);
+}
+
+void frontRightWingOut() {
+    frontWingRight.set_value(true);
+}
+
+void frontRightWingIn() {
+    frontWingRight.set_value(false);
+}
+
+void runBackWings() {
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
+        backWingLeft.set_value(true);
+        backWingRight.set_value(true);
+    } else {
+        backWingLeft.set_value(false);
+        backWingRight.set_value(false);
+    }
+}
+
+void backWingsOut() {
+    backWingLeft.set_value(true);
+    backWingRight.set_value(true);
+}
+
+void backWingsIn() {
+    backWingLeft.set_value(false);
+    backWingRight.set_value(false);
+}
+
+void backLeftWingOut() {
+    backWingLeft.set_value(true);
+}
+
+void backLeftWingIn() {
+    backWingLeft.set_value(false);
+}
+
+void backRightWingOut() {
+    backWingRight.set_value(true);
+}
+
+void backRightWingIn() {
+    backWingRight.set_value(false);
 }
