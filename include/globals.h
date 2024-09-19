@@ -61,8 +61,8 @@
 ###############
 */
 
-#define PORT_ADI_SIDE_HANG 'F'
-#define PORT_ADI_MAIN_HANG 'G'
+#define PORT_ADI_PTO 'E'
+#define PORT_ADI_LATCH 'F'
 
 /*
 ###################
@@ -70,4 +70,4 @@
 ###################
 */
 
-#define PORT_ADI_INTAKE_HOLDER 'E'
+#define PORT_ADI_INTAKE_HOLDER 'G'

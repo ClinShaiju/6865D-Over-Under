@@ -86,6 +86,8 @@ void opcontrol(void);
 #include "subsystems/puncher.h"
 #include "subsystems/wings.h"
 #include "subsystems/hang.h"
+#include "subsystems/pto.h"
+#include "subsystems/latch.h"
 #include "functions.h"
 #endif
 
